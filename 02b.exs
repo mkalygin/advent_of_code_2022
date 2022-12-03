@@ -52,6 +52,6 @@ File.stream!("./inputs/02.txt")
 |> Stream.map(&String.trim_trailing/1)
 |> Stream.map(&String.split/1)
 |> Stream.map(&RPS.score/1)
-|> Enum.to_list
-|> Enum.sum
-|> IO.inspect
+|> Enum.to_list()
+|> Enum.sum()
+|> IO.inspect()

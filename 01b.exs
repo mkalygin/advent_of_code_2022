@@ -10,5 +10,5 @@ end)
 |> Enum.to_list()
 |> Enum.sort(&(&1 >= &2))
 |> Enum.take(3)
-|> Enum.sum
+|> Enum.sum()
 |> IO.inspect()
