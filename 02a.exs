@@ -1,3 +1,5 @@
+# Correct answer: 11150
+
 defmodule RPS do
   @shapes %{
     "A" => :rock,

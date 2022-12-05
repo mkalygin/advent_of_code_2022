@@ -1,3 +1,5 @@
+# Correct answer: 886
+
 File.stream!("./inputs/04.txt")
 |> Stream.map(&String.trim_trailing/1)
 |> Stream.map(fn pair ->

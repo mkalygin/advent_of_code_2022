@@ -1,3 +1,5 @@
+# Correct answer: 209481
+
 File.stream!("./inputs/01.txt")
 |> Stream.map(&String.trim_trailing/1)
 |> Stream.chunk_by(&(&1 !== ""))
