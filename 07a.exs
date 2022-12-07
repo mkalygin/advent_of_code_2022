@@ -1,21 +1,12 @@
 # Correct answer: 1845346
 
 defmodule Terminal do
-  defmodule DirState do
-    defstruct size: 0, dirs: []
-  end
-
   def interpret(<<"$ ls">>, state), do: state
+  def interpret(<<"dir ", _dir::binary>>, state), do: state
 
   def interpret(<<"$ cd ", path::binary>>, {tree, cwd}) do
     cwd = Path.expand(path, cwd)
-    tree = Map.put_new(tree, cwd, %DirState{})
-    {tree, cwd}
-  end
-
-  def interpret(<<"dir ", dir::binary>>, {tree, cwd}) do
-    dir_state = %DirState{tree[cwd] | dirs: [dir | tree[cwd].dirs]}
-    tree = Map.put(tree, cwd, dir_state)
+    tree = Map.put_new(tree, cwd, 0)
     {tree, cwd}
   end
 
@@ -26,8 +17,7 @@ defmodule Terminal do
   end
 
   defp inc_dir_size(tree, dir, size) do
-    dir_state = %DirState{tree[dir] | size: tree[dir].size + size}
-    tree = Map.put(tree, dir, dir_state)
+    tree = Map.put(tree, dir, tree[dir] + size)
 
     case dir do
       "/" -> tree
@@ -44,7 +34,6 @@ File.stream!("./inputs/07.txt")
 |> Enum.reduce({%{}, ""}, &Terminal.interpret/2)
 |> elem(0)
 |> Map.values()
-|> Enum.map(& &1.size)
 |> Enum.filter(&(&1 <= threshold))
 |> Enum.sum()
 |> IO.inspect()
